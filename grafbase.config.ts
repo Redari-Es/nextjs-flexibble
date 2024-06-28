@@ -1,4 +1,4 @@
-import { graph, config } from '@grafbase/sdk'
+import { graph, config, auth } from '@grafbase/sdk'
 
 const g = graph.Standalone()
 
@@ -22,17 +22,18 @@ const Project = g.model('Project', {
   createdBy:g.relation(()=>User),
 })
 
+const jwt = auth.JWT({
+  issuer: 'grafbase',
+  secret:g.env('NEXTAUTH_SECRET')
+})
 
 export default config({
   graph: g,
-  // Authentication - https://grafbase.com/docs/auth
-  auth: {
-    // OpenID Connect
-    // const oidc = auth.OpenIDConnect({ issuer: g.env('OIDC_ISSUER_URL') })
-    // providers: [oidc],
-    rules: (rules) => {
-      rules.public()
-    },
+  // auth: {
+  //   providers:[jwt],
+  //   rules: (rules) => {
+  //     rules.private()
+  //   },
   },
   // Caching - https://grafbase.com/docs/graphql-edge-caching
   // cache: {
