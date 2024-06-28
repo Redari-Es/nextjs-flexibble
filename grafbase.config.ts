@@ -29,21 +29,5 @@ const jwt = auth.JWT({
 
 export default config({
   graph: g,
-  // auth: {
-  //   providers:[jwt],
-  //   rules: (rules) => {
-  //     rules.private()
-  //   },
-  },
-  // Caching - https://grafbase.com/docs/graphql-edge-caching
-  // cache: {
-  //   rules: [
-  //     {
-  //       types: ['Query'], // Cache everything for 60 seconds
-  //       maxAge: 60,
-  //       staleWhileRevalidate: 60
-  //     }
-  //   ]
-  // }
 })
 
