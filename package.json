@@ -1,0 +1,33 @@
+{
+  "name": "nextjs-flexibble",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@grafbase/sdk": "^0.25.0",
+    "@headlessui/react": "^2.1.1",
+    "@types/jsonwebtoken": "^9.0.6",
+    "cloudinary": "^2.2.0",
+    "grafbase": "^0.75.0",
+    "graphql-request": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "next": "14.2.4",
+    "next-auth": "^4.24.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.9",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.5.2",
+    "@grafbase/sdk": "~0.25.0"
+  }
+}
