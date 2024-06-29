@@ -1,0 +1,12 @@
+extend schema
+  @authz(
+    providers: [
+      { type: jwt, jwks: { url: "http://127.0.0.1:3000", issuer: "grafbase", audience: "my-project", pollInterval: "60s" }, header: { name: "Authorization", valuePrefix: "Bearer" }, name: "my-jwt" }
+    ]
+  )
+
+
+extend schema
+  @graph(type: federated)
+extend schema @introspection(enable: true)
+

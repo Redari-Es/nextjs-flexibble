@@ -1,5 +1,5 @@
 "use client"
-import { getProviders } from 'next-auth/react';
+import { getProviders, signIn } from 'next-auth/react';
 import React, { useEffect, useState } from 'react'
 
 
@@ -29,7 +29,9 @@ const AuthProviders = () => {
             <div>
                 {Object.values(providers).map
                     ((provider: Provider, i) => (
-                        <button key={i}>
+                        <button key={i}
+                            onClick={() => signIn(provider?.id)}
+                        >
                             {provider.id}
                         </button>
 
