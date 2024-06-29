@@ -1,7 +1,15 @@
-import { graph, config, auth} from '@grafbase/sdk'
+import { graph, config,connector, auth} from '@grafbase/sdk'
 
 
 const g = graph.Standalone()
+
+const github = connector.GraphQL('GitHub', {
+  url: 'https://api.github.com/graphql',
+  headers: (headers) => {
+    headers.set('Authorization',{forward:'Authorization'})
+  }
+})
+
 
 // @ts-ignore
 const user = g.type('User', {
@@ -47,11 +55,21 @@ const jwt = auth.JWT({
   },
 })
 
+g.datasource(github)
+
 export default config({
-  schema: g,
-  graph:graph.Federated(),
+  graph: g,
+  // graph:graph.Federated(),
+  cache: {
+    rules: [
+      {
+        types: ['Query'],
+        maxAge:60
+      }
+    ]
+  },
   auth: {
-    providers: [jwt],
+    // providers: [jwt],
     // rules: (rules) => rules.private()
     rules: rules => rules.public()
   },

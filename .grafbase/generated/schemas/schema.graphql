@@ -1,12 +1,46 @@
 extend schema
-  @authz(
-    providers: [
-      { type: jwt, jwks: { url: "http://127.0.0.1:3000", issuer: "grafbase", audience: "my-project", pollInterval: "60s" }, header: { name: "Authorization", valuePrefix: "Bearer" }, name: "my-jwt" }
+  @auth(
+    rules: [
+      { allow: public }
     ]
   )
 
-
 extend schema
-  @graph(type: federated)
+  @cache(rules: [
+    {
+      types: ["Query"],
+      maxAge: 60
+    }
+  ])
+
 extend schema @introspection(enable: true)
 
+extend schema
+  @graphql(
+    name: "GitHub"
+    namespace: true
+    url: "https://api.github.com/graphql"
+    headers: [
+      { name: "Authorization", forward: "Authorization" }
+    ]
+  )
+
+type User {
+  name: String! @length(min: 2, max: 10)
+  email: Email!
+  avatarUrl: URL!
+  description: String @length(min: 2, max: 100)
+  githubUrl: URL
+  linkedinUrl: URL
+  projects: [Project!]
+}
+
+type Project {
+  title: String! @length(min: 3)
+  description: String!
+  image: URL!
+  liveSiteUrl: URL!
+  githubUrl: URL!
+  category: String!
+  createdBy: User!
+}
