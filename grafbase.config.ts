@@ -10,6 +10,12 @@ const github = connector.GraphQL('GitHub', {
   }
 })
 
+const contentful = connector.GraphQL('Contentful', {
+  url: g.env('CONTENTFUL_API_URL'),
+  headers: headers => {
+    headers.set('Authorization', `Bearer ${g.env('CONTENTFUL_API_KEY')}`)
+  },
+})
 
 // @ts-ignore
 const user = g.type('User', {
@@ -55,7 +61,8 @@ const jwt = auth.JWT({
   },
 })
 
-g.datasource(github)
+// g.datasource(github)
+g.datasource(contentful)
 
 export default config({
   graph: g,
@@ -71,7 +78,7 @@ export default config({
   auth: {
     // providers: [jwt],
     // rules: (rules) => rules.private()
-    rules: rules => rules.public()
+    rules: rules => rules.private()
   },
 })
 
